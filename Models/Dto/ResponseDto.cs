@@ -1,6 +1,6 @@
 ﻿namespace VDVT.Micro.Product.Api.Models.Dto
 {
-    public class ResponsDto
+    public class ResponseDto
     {
         public object Result { get; set; }
         public bool IsSuccess { get; set; } = true;
