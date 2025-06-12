@@ -31,8 +31,9 @@ builder.Services.AddSwaggerGen(option =>
 {
     option.AddSecurityDefinition(name: JwtBearerDefaults.AuthenticationScheme, securityScheme: new OpenApiSecurityScheme
     {
-        Name = "Athorization",
+        Name = "Authorization",
         Description = "Enter the Bearer Authorization string as following",
+        In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
@@ -53,7 +54,8 @@ builder.Services.AddSwaggerGen(option =>
 });
 
 builder.AddAppAuthentication();
-builder.Services.AddAuthorization();
+builder.Services.AddControllers();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -65,17 +67,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Producto API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+        c.RoutePrefix = string.Empty;
     });
-    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseStaticFiles();
+app.UseCors();
 app.MapControllers();
-ApplyMigration();
 
 app.Run();
 

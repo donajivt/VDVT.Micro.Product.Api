@@ -8,8 +8,8 @@ namespace VDVT.Micro.Product.Api.Extensions
     {
         public static WebApplicationBuilder AddAppAuthentication(this WebApplicationBuilder builder)
         {
-            var settingsSection = builder.Configuration.GetSection("ApiSettings");
-            var secret = settingsSection.GetValue<string>("JwtOptions:Secret");
+            var settingsSection = builder.Configuration.GetSection("ApiSettings:JwtOptions");
+            var secret = settingsSection.GetValue<string>("Secret");
             var issuer = settingsSection.GetValue<string>("Issuer");
             var audience = settingsSection.GetValue<string>("Audience");
             var key = Encoding.ASCII.GetBytes(secret);
@@ -26,8 +26,8 @@ namespace VDVT.Micro.Product.Api.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidIssuer = issuer,
-                    ValidAudience = audience,
-                    ValidateAudience = true
+                    ValidateAudience = true,
+                    ValidAudience = audience
                 };
             });
             return builder;

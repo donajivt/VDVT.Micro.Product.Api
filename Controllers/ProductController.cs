@@ -49,14 +49,14 @@ namespace VDVT.Micro.Product.Api.Controllers
                 if(productDto.Image != null)
                 {
                     string fileName = product.ProductId + Path.GetExtension(productDto.Image.FileName);
-                    var filePath = @"wwwroot\ProductImages\" + fileName;
+                    var filePath = @"wwwroot\Images\" + fileName;
                     var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePath);
                     using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
                     {
                         productDto.Image.CopyTo(fileStream);
                     }
                     var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
-                    product.ImageUrl = baseUrl + "/ProductImages/" + fileName;
+                    product.ImageUrl = baseUrl + "/Images/" + fileName;
                     product.ImageLocalPath = filePath;
                 }
                 else

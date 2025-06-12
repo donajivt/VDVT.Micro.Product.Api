@@ -62,7 +62,7 @@ namespace VDVT.Micro.Product.Api.Extensions
                                 Id = "Bearer"
                             }
                         },
-                        new string[] {}
+                        Array.Empty<string>()
                     }
                     
                 });
